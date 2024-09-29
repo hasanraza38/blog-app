@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Layout.jsx";
 import Login from "./screens/login/login.jsx";
 import Register from "./screens/register/Register.jsx";
-import ProtectedRoutes from "./components/protected routes/protectedRoute.jsx";
+import Dashboard from "./screens/dashboard/Dashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
          path:'',
-         element:  <ProtectedRoutes Comp={<App/>}/>
+         element: <App/>
       },
       {
         path: "/login",
@@ -23,6 +23,11 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register/>
+
+      },
+      {
+        path: '/dashboard',
+        element: <Dashboard/>
       }
   ],
   },

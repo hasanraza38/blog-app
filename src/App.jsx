@@ -4,6 +4,7 @@ import Nav from './components/navbar/Nav'
 const App = () => {
   return (
 <>
+<Nav/>
 <div className='w-full' >
 
 </div>
