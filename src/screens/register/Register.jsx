@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Nav from "../../components/navbar/Nav";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { signUpUser, uploadImage } from "../../config/firebase/firebasemethods";
 
 function Register() {
   const {
@@ -11,15 +12,9 @@ function Register() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // const onSubmit = (data) => console.log(data);
+  const navigate = useNavigate();
 
   const registerUserFromFirebase = async (data) => {
-    console.log(data);
-    
-    data.preventDefault()
-    console.log(data.email)
-    console.log(data.password)
-    console.log(data.profileImage[0])
 
     const userProfileImageUrl = await uploadImage(data.profileImage[0], data.email)
 
@@ -35,6 +30,8 @@ function Register() {
       console.error(error);
 
     }
+   
+    navigate('/login')
 
   }
 

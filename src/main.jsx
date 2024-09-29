@@ -4,7 +4,8 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Layout.jsx";
 import Login from "./screens/login/login.jsx";
-import Register from "./screens/register/register.jsx";
+import Register from "./screens/register/Register.jsx";
+import ProtectedRoutes from "./components/protected routes/protectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,8 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-         path:"",
-         element: <App/>
+         path:'',
+         element:  <ProtectedRoutes Comp={<App/>}/>
       },
       {
         path: "/login",
