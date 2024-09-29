@@ -1,8 +1,14 @@
 import React from 'react'
+import Nav from './components/navbar/Nav'
 
 const App = () => {
   return (
-    <div>App</div>
+<>
+<Nav/>
+<div className='w-full' >
+
+</div>
+</>
   )
 }
 
