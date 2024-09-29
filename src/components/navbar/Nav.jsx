@@ -42,11 +42,11 @@ const logoutUser =() => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-[#9de9e0] text-black rounded-box z-[1] mt-3 w-40  shadow">
+        className="menu menu-sm dropdown-content bg-[#9de9e0] text-black rounded-box z-[1] mt-3 w-40 p-5  shadow">
           <div className='flex justify-center gap-3 items-center flex-col w-full'>
-
-        <li className='border border-zinc-500 rounded-xl w-full'><Link to='/dashboard'>Dashboard</Link></li>
-        <li className='border border-zinc-500 rounded-xl w-full ' onClick={logoutUser}><Link>Logout</Link></li>
+<li className='border-none btn-disabled shadow-lg shadow-zinc-400  rounded-xl w-full hover:bg-[#00D9C0] '><Link to='/dashboard'>Profile</Link></li>
+        <li className='border-none  shadow-lg shadow-zinc-400 rounded-xl w-full hover:bg-[#00D9C0]'><Link to='/dashboard'>Dashboard</Link></li>
+        <li className='border-none shadow-lg  shadow-zinc-400 rounded-xl w-full hover:bg-[#00D9C0]' onClick={logoutUser}><Link>Logout</Link></li>
         </div>
 
       </ul>
