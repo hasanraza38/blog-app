@@ -1,8 +1,20 @@
 import React from 'react'
 import Nav from '../../components/navbar/Nav'
 import { useForm } from 'react-hook-form';
+import { db, getData, sendData } from '../../config/firebase/firebasemethods';
+import { auth } from '../../config/firebase/firebasemethods';
+import { onAuthStateChanged } from 'firebase/auth';
+import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 
 function Dashboard() {
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+     renderBlogs(uid)
+    } 
+    
+  });
 
   const {
     register,
@@ -11,7 +23,26 @@ function Dashboard() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const addBlogs = (data) => console.log(data);
+  const renderBlogs =  async (uid) => {
+   
+    
+  }
+  
+
+
+  const addBlogs = (data) =>{
+    console.log(data);
+    
+    const blogs = {
+      title : data.title,
+      blog : data.blog
+   }
+    sendData(blogs ,"blog's")
+    renderBlogs()
+
+  } 
+
+  
   
   return (
     <>

@@ -3,6 +3,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    onAuthStateChanged ,
   } from "firebase/auth";
   import app from "./firebaseconfig";
   import {
@@ -157,6 +158,7 @@ import {
       console.log(error);
     }
   }
+ 
   
   
   export { auth, db, signUpUser, loginUser, signOutUser, sendData, getData, getAllData, deleteDocument, updateDocument, uploadImage };
