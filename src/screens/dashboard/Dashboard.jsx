@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from '../../components/navbar/Nav'
 import { useForm } from 'react-hook-form';
 import { db, getData, sendData } from '../../config/firebase/firebasemethods';
@@ -7,6 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 
 function Dashboard() {
+  const [dataArr , SetArr]  = useState([])
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -24,20 +25,37 @@ function Dashboard() {
   } = useForm();
 
   const renderBlogs =  async (uid) => {
-   
+    try {
+      const blogs = await getData("blog's", uid);
+      dataArr.push (blogs)
+      console.log(blogs);  
+  
+    } catch (error) {
+      console.error( error);
+    }
+    
+    
     
   }
   
 
-
+  // const q = query(collection(db, "blog's"),where("uid", "==", uid));
+  
+  // const querySnapshot = await getDocs(q);
+  // querySnapshot.forEach((doc) => {
+  //   console.log(doc.id, " => ", doc.data());
+  // });
+  
   const addBlogs = (data) =>{
-    console.log(data);
+    // console.log(data);
     
     const blogs = {
       title : data.title,
       blog : data.blog
    }
     sendData(blogs ,"blog's")
+    // data.title =""
+    // data.current.value =""
     renderBlogs()
 
   } 

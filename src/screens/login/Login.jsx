@@ -22,7 +22,7 @@ function Login() {
         password: data.password,
       });
       // console.log(userLogin);
-      navigate('/')
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -35,16 +35,18 @@ function Login() {
       <div className="flex justify-center items-center h-[90vh]">
         <div className="border  border-zinc-400 p-11 rounded-2xl shadow-lg shadow-[#43f7e2]">
           <h1 className="text-center font-bold text-white text-3xl">Login</h1>
-          <form onSubmit={handleSubmit(loginUserFromFirebase)} className="flex justify-center flex-col items-center mt-8">
+          <form
+            onSubmit={handleSubmit(loginUserFromFirebase)}
+            className="flex justify-center flex-col items-center mt-8"
+          >
             <div className="mb-4 w-80">
               <input
                 type="email"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 placeholder="Enter your email"
-                {...register("email", { required: true,})}
-
+                {...register("email", { required: true })}
               />
-               <br />
+              <br />
               {errors.email && (
                 <span className="text-red-500">This field is required</span>
               )}
@@ -54,8 +56,7 @@ function Login() {
                 type="password"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 placeholder="Enter your password"
-                {...register("password", { required: true , minLength : 9})}
-              
+                {...register("password", { required: true, minLength: 9 })}
               />
               <br />
               {errors.password && (
@@ -64,9 +65,7 @@ function Login() {
             </div>
 
             <div className=" mt-2 flex justify-center">
-              <button
-                className="btn btn-sm text-black bg-[#00D9C0] border-none px-5 py-1 hover:bg-[#00B5A2]"
-              >
+              <button className="btn btn-sm text-black bg-[#00D9C0] border-none px-5 py-1 hover:bg-[#00B5A2]">
                 Login
               </button>
             </div>
