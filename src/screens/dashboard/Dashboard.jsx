@@ -1,40 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../../components/navbar/Nav";
 import { useForm } from "react-hook-form";
-import { getData, sendData } from "../../config/firebase/firebasemethods";
+import {db, getData, sendData } from "../../config/firebase/firebasemethods";
 import { auth } from "../../config/firebase/firebasemethods";
 import { onAuthStateChanged } from "firebase/auth";
+import Footer from "../../components/footer/footer";
 
 
 function Dashboard() {
-  const [dataArr, SetArr] = useState([{
-    title:'hgjhgjhg',
-    blog: 'fgghfhf'
-  }]);
+  const [dataArr, setDataArr] = useState([]);
 
+ useEffect(()=>{
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
+      renderBlogs()
     }
   });
+  
+ },[])
+ const renderBlogs = async () => {
+  try {
+    const blogs = await getData("blog's", auth.currentUser.uid);
+    console.log(blogs);
+    dataArr.push(blogs);
+    setDataArr([...blogs])
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const renderBlogs = async () => {
-    try {
-      const blogs = await getData("blog's", auth.currentUser.uid);
-      // dataArr.push(blogs);
-      // console.log(blogs);
-      // sendData([blogs])
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
 
 
@@ -46,13 +50,14 @@ function Dashboard() {
     };
     sendData(blogs, "blog's");
     renderBlogs();
+    reset()
   };
 
   return (
-    <>
+    <div className="w-full h-full">
       <Nav />
       <div className="mx-10">
-        <div className=" w-full h-full">
+        <div className=" w-full ">
           <div className="mt-10 flex justify-center  items-center">
             <div className=" ">
               <h1 className="text-center text-3xl font-bold text-[#63ecdc]">
@@ -101,17 +106,17 @@ function Dashboard() {
         </div>
 
         {/* My Blogs  */}
-        <div className="mt-8">
+        <div className='mt-8'>
           <h1 className="font-sans text-3xl text-[#00D9C0] font-bold">
             My blogs{" "}
           </h1>
         </div>
 
-        <div className="flex flex-col gap-2">
-          {dataArr.map((item) => {
+        <div className="flex flex-col gap-6 h-full py-11 ">
+          { dataArr ? dataArr.map((item) => {
             return (
               <>
-                <div className=" p-5 rounded-2xl bg-[#00D9C0] w-[50vw] shadow-2xl mt-5 text-black">
+                <div className=" p-5 rounded-2xl bg-[#00D9C0] w-[50vw] shadow-2xl  text-black">
                   <div className="flex gap-2">
                     <div className="avatar">
                       <div className="w-14 rounded">
@@ -144,10 +149,11 @@ function Dashboard() {
                 </div>
               </>
             );
-          })}
+          }) : <h1 className="text-white text-center text-4xl my-5">loading...</h1>}
         </div>
       </div>
-    </>
+      <Footer/>
+    </div>
   );
 }
 
