@@ -96,25 +96,6 @@ import {
   };
   
   //get data with id from firestore
-  // const getData = (colName , uid) => {
-  //   return new Promise(async (resolve, reject) => {
-  //     const dataArr = []
-      
-  //     const q = query(
-  //       collection(db, colName),
-  //       where("uid", "==", uid)
-  //     );
-      
-  //     const querySnapshot = await getDocs(q);
-  //     querySnapshot.forEach((doc) => {
-  //       dataArr.push(doc.data())
-  //       resolve(dataArr);
-  //     });
-  //     reject("error occured");
-  //   });
-  // };
-
-
 
   const getData = (colName, uid) => {
     return new Promise(async (resolve, reject) => {
