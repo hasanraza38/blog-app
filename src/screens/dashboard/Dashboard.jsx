@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/navbar/Nav";
 import { useForm } from "react-hook-form";
-import {db, getData, sendData } from "../../config/firebase/firebasemethods";
+import {db, deleteDocument, getData, sendData } from "../../config/firebase/firebasemethods";
 import { auth } from "../../config/firebase/firebasemethods";
 import { onAuthStateChanged } from "firebase/auth";
 import Footer from "../../components/footer/footer";
+import { collection, getDoc } from "firebase/firestore";
+
 
 
 function Dashboard() {
@@ -43,15 +45,44 @@ function Dashboard() {
 
 
   const addBlogs = (data) => {
+    
     const blogs = {
       title: data.title,
       blog: data.blog,
       uid: auth.currentUser.uid,
+      
     };
     sendData(blogs, "blog's");
     renderBlogs();
     reset()
   };
+
+
+  const deleteBlog = async (index) => {
+      const querySnapshot = await getDoc(collection(db, "blog's"));
+      querySnapshot((doc) => {
+console.log(doc.id);
+
+      });
+    // const docRef = await dataArr[index].db.collection("blog's").doc()
+    // console.log(docRef);
+    
+    // try {
+    //   await deleteDoc(doc(db, "Blog's", id));
+    //   console.log('Document successfully deleted!');
+    // } catch (error) {
+    //   console.error('Error deleting document: ', error);
+    //   alert('Error deleting document: ' + error.message);
+    // }
+    
+        
+
+  }
+
+  const editBlog = (index) => {
+    console.log('edit' , index);
+
+  }
 
   return (
     <div className="w-full h-full">
@@ -64,7 +95,7 @@ function Dashboard() {
                 Publish Blog
               </h1>
               {/*publish blog */}
-              <div className="bg-[#00D9C0] p-8 rounded-2xl w-[50vw] shadow-zinc-500 shadow-lg mt-5">
+              <div className="bg-[rgb(0,217,192)] p-8 rounded-2xl w-[50vw] shadow-zinc-500 shadow-lg mt-5">
                 <form onSubmit={handleSubmit(addBlogs)}>
                   <div className="mb-4">
                     <input
@@ -95,7 +126,7 @@ function Dashboard() {
                     )}
                   </div>
                   <div className=" mt-2 flex justify-center">
-                    <button className="btn btn-md  bg-black shadow-lg shadow-zinc-900 border-none text-[#72f1e3] ">
+                    <button type="submit" className="btn btn-md  bg-black shadow-lg shadow-zinc-900 border-none text-[#72f1e3] ">
                       Publish Blog
                     </button>
                   </div>
@@ -113,7 +144,7 @@ function Dashboard() {
         </div>
 
         <div className="flex flex-col gap-6 h-full py-11 ">
-          { dataArr ? dataArr.map((item) => {
+          { dataArr ? dataArr.map((item , index) => {
             return (
               <>
                 <div className=" p-5 rounded-2xl bg-[#00D9C0] w-[50vw] shadow-2xl  text-black">
@@ -139,10 +170,10 @@ function Dashboard() {
                     <p className="text-black font-medium">{item.blog}</p>
                   </div>
                   <div className="mt-5 flex gap-4">
-                    <button className="border  border-red-500 rounded shadow-md shadow-red-700 px-2 text-black font-bold">
+                    <button onClick={() => deleteBlog(index)} className="border  border-red-500 rounded shadow-md shadow-red-700 px-2 text-black font-bold">
                       Delete
                     </button>
-                    <button className="border-none rounded shadow-md shadow-zinc-900 px-2  text-black font-bold">
+                    <button onClick={() => editBlog(index)} className="border-none rounded shadow-md shadow-zinc-900 px-2  text-black font-bold">
                       Edit
                     </button>
                   </div>
