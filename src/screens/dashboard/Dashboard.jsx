@@ -58,26 +58,15 @@ function Dashboard() {
   };
 
 
-  const deleteBlog = async (index) => {
-      const querySnapshot = await getDoc(collection(db, "blog's"));
-      querySnapshot((doc) => {
-console.log(doc.id);
+  const deleteBlog = (index) => {
+    const blogid = dataArr[index]
 
-      });
-    // const docRef = await dataArr[index].db.collection("blog's").doc()
-    // console.log(docRef);
+  
+  console.log(blogid);
     
-    // try {
-    //   await deleteDoc(doc(db, "Blog's", id));
-    //   console.log('Document successfully deleted!');
-    // } catch (error) {
-    //   console.error('Error deleting document: ', error);
-    //   alert('Error deleting document: ' + error.message);
-    // }
-    
-        
-
+    // console.log("delete ", dataArr[index].id);
   }
+     
 
   const editBlog = (index) => {
     console.log('edit' , index);
