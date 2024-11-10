@@ -1,32 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import Nav from './components/navbar/Nav'
-import { getAllData } from './config/firebase/firebasemethods'
+import React, { useEffect, useState } from "react";
+import Nav from "./components/navbar/Nav";
+import { getAllData } from "./config/firebase/firebasemethods";
 
 const App = () => {
-  const[data,setData] = useState([]);
-useEffect(() => {
+  // States
+  const [data, setData] = useState([]);
+  // States
 
-  const renderAllData = async() =>{
-    const blogs = await getAllData("blog's")
-    console.log(blogs);
-    
-    data.push(blogs)
-    setData(...data)
-  }
-  renderAllData()
-},[])
+  //  useEffect
+  useEffect(() => {
+    const renderAllData = async () => {
+      const blogs = await getAllData("blog's");
+      console.log(blogs);
+      data.push(blogs);
+      setData(...data);
+    };
+    renderAllData();
+  }, []);
+  //  useEffect
+
   return (
-<>
-<Nav/>
-<div className='w-full' >
-<div className='mt-5'>
-  <h1 className='text-center text-3xl text-[#00D9C0] font-semibold '>Blog's</h1>
-</div>
-<div className="flex flex-col gap-6 h-full p-11 ">
-          { data ? data.map((item) => {
-            return (
-              <>
-                <div key={item.documentId} className=" p-5 rounded-2xl bg-[#00D9C0] w-full shadow-2xl  text-black">
+    <>
+      {/* navbar */}
+      <Nav />
+      {/* navbar */}
+
+      {/* Main Div */}
+      <div className="w-full">
+        {/* Heading */}
+        <div className="mt-5">
+          <h1 className="text-center text-3xl text-[#00D9C0] font-semibold ">
+            Blog's
+          </h1>
+        </div>
+        {/* Heading */}
+
+        {/* Blogs */}
+
+        <div className="flex flex-col gap-6 h-full p-11 ">
+          {data ? (
+            data.map((item) => {
+              return (
+                <div
+                  key={item.documentId}
+                  className=" p-5 rounded-2xl bg-[#00D9C0] w-full shadow-2xl  text-black"
+                >
                   <div className="flex gap-2">
                     <div className="avatar">
                       <div className="w-14 rounded">
@@ -48,16 +66,18 @@ useEffect(() => {
                   <div className="mt-3">
                     <p className="text-black font-medium">{item.blog}</p>
                   </div>
-                  
                 </div>
-              </>
-            );
-          }) : <h1 className="text-white text-center text-4xl my-5">loading...</h1>}
+              );
+            })
+          ) : (
+            <h1 className="text-white text-center text-4xl my-5">loading...</h1>
+          )}
         </div>
+        {/* Blogs */}
+      </div>
+      {/* Main Div */}
+    </>
+  );
+};
 
-</div>
-</>
-  )
-}
-
-export default App
+export default App;

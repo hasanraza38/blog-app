@@ -4,11 +4,16 @@ import { Link } from "react-router-dom";
 import { auth, getData, signOutUser } from "../../config/firebase/firebasemethods";
 
 function Nav() {
+  // States
   const [isUser, setIsUser] = useState(false);
-const [imgUrl , setImgurl] = useState(null)
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
+  const [imgUrl , setImgurl] = useState(null)
+  // States
+
+// useEffect
+useEffect(() => {
+  
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
         setIsUser(true);
         return;
       } else {
@@ -16,20 +21,25 @@ const [imgUrl , setImgurl] = useState(null)
         return;
       }
     });
+
     const getImgUrl = async() =>{
-    const data = getData('users',auth.currentUser.uid)
+      // console.log(auth.currentUser)
+    const data = await getData('users', auth.currentUser.uid)
      setImgurl(data)
      console.log(data);
      
     }
     getImgUrl()
   }, []);
+// useEffect
 
 
+// logout func
   const logoutUser = () => {
     console.log("logout");
     signOutUser();
   };
+// logout func
 
   return (
     <>
